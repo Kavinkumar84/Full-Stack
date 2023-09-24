@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* Center-align the "order" div */
+    .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ /* Center vertically on the page */
+}
+
+.card {
+  width: 18rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 10px; /* Add some margin between items */
+  padding:30px  ;
+}
+.card img{
+  width:300px;
+  height:250px;
+}
+
+.custom-button {
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.delete-button {
+  background-color: red;
+}
+
+.order-button {
+  background-color: green;
+}
+ul{
+  list-style: none;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <center> <h1 style="color: rgb(60, 76, 219);">Cart</h1></center>
+  <div class="order"> 
+    <ul id="cart"></ul>
+  </div>
+  <script>
+    const arr1=JSON.parse(localStorage.getItem("order")) || [];
+function remove(index){
+  arr1.splice(index,1);
+  localStorage.setItem('order',JSON.stringify(''))
+  receive();
+}
+function placeOrder(){
+  var x=prompt("Enter your address:");
+  if(x){
+  alert("your order has been placed");
+  }
+  else{
+    alert("No address mentioned! Retry again")
+  }
+}
+
+    function receive(){
+      const list=document.getElementById('cart')
+    list.innerHTML="";
+if(Array.isArray(arr1)){
+  arr1.forEach((item,index) => {
+    const li = document.createElement('li');
+    li.innerHTML=`
+    <div class="container">
+  <div class="card">
+    <img src="${item.location}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${item.foodname}</h5>
+      <p class="card-text">${item.prize}</p>
+      <button onclick="remove(${index})" class="custom-button delete-button">Delete</button>
+      <button onclick="placeOrder()" class="custom-button order-button">Order now</button>
+    </div>
+  </div>
+</div>
+
+
+    `;
+    list.appendChild(li);
+
+  })
+  }
+  else{
+    list.innerHTML="<p>Cart is Empty</p>"
+  }
+
+
+
+    }
+    receive();
+
+  </script>
+</body>
+</html>
