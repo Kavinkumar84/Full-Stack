@@ -1,0 +1,105 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Image</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        
+        .flex-container-up,
+        .flex-container-down {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .flex-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+            width: 250px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .flex-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .img-a {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        span {
+            display: block;
+        }
+
+        /* Style for the "Add to Cart" button */
+        .add-to-cart-button {
+            background-color: #38e6dd;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-box" data-category="vivo">
+        <!-- Display the uploaded image from local storage -->
+        <img class="img-a" src="" alt="Uploaded Image" id="uploaded-image">
+        
+        <!-- Display the model name and price below the image -->
+        <h2 id="model-name"></h2>
+        <div class="description">
+            <a class="ui orange tag label" id="price"></a>
+        </div>
+        
+        <!-- Your other content goes here -->
+    </div>
+
+    <script>
+        // Retrieve the uploaded image URL, model name, and price from local storage
+        const imageUrl = localStorage.getItem('uploadedImage');
+        const modelName = localStorage.getItem('modelName');
+        const price = localStorage.getItem('price');
+
+        // Set the image source, model name, and price on the second page
+        if (imageUrl) {
+            const uploadedImage = document.getElementById('uploaded-image');
+            uploadedImage.src = imageUrl;
+        }
+
+        if (modelName) {
+            const modelNameElement = document.getElementById('model-name');
+            modelNameElement.textContent = modelName;
+        }
+
+        if (price) {
+            const priceElement = document.getElementById('price');
+            priceElement.textContent = price;
+        }
+    </script>
+</body>
+</html>
+

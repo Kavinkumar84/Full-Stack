@@ -1,0 +1,194 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Used Product Listing</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <style>
+        body {
+    background-image: url('your-image-url.jpg');  
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-attachment: fixed;  
+}
+         .form-group {
+            margin-bottom: 20px;
+        }
+        .col-md-7{
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6"> 
+                <div id="productCarousel" class="carousel slide" data-ride="carousel"> 
+                    <ul class="carousel-indicators">
+                        <li data-target="#productCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#productCarousel" data-slide-to="1"></li>
+                        <li data-target="#productCarousel" data-slide-to="2"></li>
+                    </ul> 
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?cs=srgb&dl=pexels-pixabay-356056.jpg&fm=jpg" class="d-block w-100" alt="Product Image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRbFqZTBQP1YFFt0Syv3xcx_20ns2FWT8EOclkUfAObQrP2RAfotBRrSR6lm9GRVuvcU0LPaubA5A_bSDfeh1H0kAslk9FoenuuUaOFyhJxu_xsb6BUhu1P&usqp=CAE" class="d-block w-100" alt="Product Image 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQAKLya3Kif2958_-PPjHJEGCmJcmQETkir8S6iiY4zPlsYGbkwKFw_IKRmyz-e5udZU1pghkIMoNwHgTEG-H6nj169Gkrs1YBupSSFuCw&usqp=CAE" class="d-block w-100" alt="Product Image 3">
+                        </div>
+                    </div> 
+                    <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h1 style="color: blueviolet;">Sell your Used Product</h1><br>
+                <h3>Category</h3>
+                <div class="form-group">
+                    <select class="form-control" id="category" name="category">
+                        <option value="Mobile">Mobile</option>
+                        <option value="Laptop">Laptop</option>
+                        <option value="Car">Car</option>
+                        <option value="Gaming PC">Gaming PC</option>
+                        <option value="Bike">Bike</option>
+                        <option value="Home Theatre">Home Theatre</option>
+                    </select>
+                </div>
+
+                <!-- Data-category dropdown (second dropdown) -->
+                <div class="form-group" id="data-category-group">
+                    <label for="data-category">Data Category</label>
+                    <select class="form-control" id="data-category" name="data-category">
+                        <!-- Options will be populated dynamically based on the selected category -->
+                    </select>
+                </div>
+
+                <h3>Enter Product Details</h3>
+                <form id="upload-form">
+                    <div class="form-group">
+                        <label for="name">Model Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Product Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" placeholder="Enter Your Price">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image Upload</label>
+                        <input type="file" class="form-control-file" id="image" name="image">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Contact Seller</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categoryDropdown = document.getElementById('category');
+        const dataCategoryGroup = document.getElementById('data-category-group');
+        const dataCategoryDropdown = document.getElementById('data-category');
+    
+        categoryDropdown.addEventListener('change', function () {
+            // Clear the existing options in the data-category dropdown
+            dataCategoryDropdown.innerHTML = '';
+    
+            // Get the selected category and data category
+            const selectedCategory = categoryDropdown.value;
+            const selectedDataCategory = dataCategoryDropdown.value;
+    
+            // Store the selected data category in local storage
+            localStorage.setItem('selectedDataCategory', selectedDataCategory);
+    
+            // Define options for data-category based on the selected category
+            const options = {
+                Mobile: ['iPhone', 'Vivo', 'Realme', 'Samsung'],
+                Laptop: ['Dell', 'Lenovo', 'HP', 'ROG'],
+                Car: ['Toyota', 'Porsche', 'Mustang', 'Honda'],
+                Bike: ['BMW', 'Yamaha', 'Kawasaki', 'Suzuki'],
+                'Gaming PC': ['None'],
+                'Home Theatre': ['None'],
+            };
+    
+            // Populate the data-category dropdown with options
+            if (selectedCategory in options) {
+                options[selectedCategory].forEach((option) => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    dataCategoryDropdown.appendChild(optionElement);
+                });
+            }
+    
+            // Show/hide the data-category dropdown based on the selected category
+            if (selectedCategory === 'Gaming PC' || selectedCategory === 'Home Theatre') {
+                dataCategoryGroup.style.display = 'none';
+            } else {
+                dataCategoryGroup.style.display = 'block';
+            }
+        });
+    
+        // Add an event listener to the form submission
+        document.getElementById('upload-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent the form from actually submitting
+    
+            // Get the uploaded image
+            const uploadedImage = document.getElementById('image').files[0];
+    
+            // Get the values of model name, price, category, and data category
+            const modelName = document.getElementById('name').value;
+            const price = document.getElementById('price').value;
+            const category = document.getElementById('category').value;
+            const dataCategory = localStorage.getItem('selectedDataCategory'); // Retrieve the stored data category
+    
+            if (uploadedImage && modelName && price && category && dataCategory) {
+                const reader = new FileReader();
+    
+                // When the image is loaded, store it in local storage
+                reader.onload = function (event) {
+                    const imageUrl = event.target.result;
+                    localStorage.setItem('uploadedImage', imageUrl);
+                    localStorage.setItem('modelName', modelName);
+                    localStorage.setItem('price', price);
+                    ocalStorage.setItem('dataCategory', dataCategory);
+    
+                    // Redirect based on the selected category
+                    if (category === 'Mobile') {
+                        window.location.href = 'mobile.html';
+                    } else if (category === 'Laptop') {
+                        window.location.href = 'laptop.html';
+                    } else if (category === 'Car') {
+                        window.location.href = 'car.html';
+                    } else if (category === 'Gaming PC') {
+                        window.location.href = 'pc.html';
+                    } else if (category === 'Bike') {
+                        window.location.href = 'bike.html';
+                    } else if (category === 'Home Theatre') {
+                        window.location.href = 'hometheater.html';
+                    }
+                };
+    
+                // Read the uploaded image as a data URL
+                reader.readAsDataURL(uploadedImage);
+            }
+        });
+    </script>
+</body>
+</html>
